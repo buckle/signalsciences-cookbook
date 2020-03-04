@@ -1,4 +1,4 @@
-name 'signalsciences'
+name 'bke_signalsciences'
 maintainer 'The Buckle, Inc'
 maintainer_email 'wsdsysadmin@buckle.com'
 license 'Apache-2.0'
