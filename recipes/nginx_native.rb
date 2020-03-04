@@ -18,7 +18,7 @@ install_action = if node['bke_signalsciences']['nginx_lua_auto_update']
                  end
 
 # installs the sigsci-agent package and pins version if agent_version is set
-package 'sigsci-nginx-lua-module' do
+package 'sigsci-nginx-native-module' do
   unless node['bke_signalsciences']['nginx_lua_module_version'].empty?
     version node['bke_signalsciences']['nginx_lua_module_version']
   end

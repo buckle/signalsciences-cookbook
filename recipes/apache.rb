@@ -7,23 +7,23 @@
 # All rights reserved - Do Not Redistribute
 #
 #
-include_recipe 'signalsciences::common'
+include_recipe 'bke_signalsciences::common'
 
 # by default install the package unless auto_update is enabled
-pkg_action = if node['signalsciences']['apache_module_auto_update']
+pkg_action = if node['bke_signalsciences']['apache_module_auto_update']
                :upgrade
              else
                :install
              end
 
 package 'sigsci-module-apache' do
-  unless node['signalsciences']['apache_module_version'].empty?
-    version node['signalsciences']['apache_module_version']
+  unless node['bke_signalsciences']['apache_module_version'].empty?
+    version node['bke_signalsciences']['apache_module_version']
   end
   action pkg_action
 end
 
-conf_path = node['signalsciences']['apache_module_conf_path']
+conf_path = node['bke_signalsciences']['apache_module_conf_path']
 template "#{conf_path}/sigsci.conf" do
   source 'apache_module.conf.erb'
   owner 'root'

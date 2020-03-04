@@ -8,15 +8,15 @@
 #
 #
 
-include_recipe 'signalsciences::common'
+include_recipe 'bke_signalsciences::common'
 
-if node['signalsciences']['access_key'].empty? || node['signalsciences']['secret'].empty?
+if node['bke_signalsciences']['access_key'].empty? || node['bke_signalsciences']['secret'].empty?
   Chef::Log.warn("Signal Sciences access or secret key attributes aren't set, not installing agent")
   return
 end
 
 # if auto_update is enabled package action will be set to upgrade
-install_action = if node['signalsciences']['agent_auto_update']
+install_action = if node['bke_signalsciences']['agent_auto_update']
                    :upgrade
                  else
                    :install
@@ -24,8 +24,8 @@ install_action = if node['signalsciences']['agent_auto_update']
 
 # installs the sigsci-agent package and pins version if agent_version is set
 package 'sigsci-agent' do
-  unless node['signalsciences']['agent_version'].empty?
-    version node['signalsciences']['agent_version']
+  unless node['bke_signalsciences']['agent_version'].empty?
+    version node['bke_signalsciences']['agent_version']
   end
   action install_action
   notifies :restart, 'service[sigsci-agent]', :delayed

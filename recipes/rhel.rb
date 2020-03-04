@@ -11,7 +11,7 @@ dist_release = node['platform_version'].gsub(/^(\d)\..*/, '\1')
 
 # workaround for apache httpd under systemd. Under systemd httpd runs with
 # private tmp enabled by default so we can't see our unix domain socket
-if dist_release == '7' && node['signalsciences']['rpc_address'].empty?
+if dist_release == '7' && node['bke_signalsciences']['rpc_address'].empty?
   node.default['signalsciences']['rpc_address'] = 'unix:/var/run/sigsci-lua'
 end
 
@@ -29,10 +29,10 @@ end
 # If auto update mode is enabled periodically clean the yum metadata cache
 # for the sigsci repo only. How frequently this occurs is configured by
 # the cache_refresh_interval attribute, by default we refresh hourly.
-cache_refresh_interval = node['signalsciences']['cache_refresh_interval']
-cache_sentinel_file = node['signalsciences']['cache_sentinel_file']
+cache_refresh_interval = node['bke_signalsciences']['cache_refresh_interval']
+cache_sentinel_file = node['bke_signalsciences']['cache_sentinel_file']
 
-if node['signalsciences']['agent_auto_update'] || node['signalsciences']['apache_module_auto_update'] || node['signalsciences']['nginx_lua_module_auto_update']
+if node['bke_signalsciences']['agent_auto_update'] || node['bke_signalsciences']['apache_module_auto_update'] || node['bke_signalsciences']['nginx_lua_module_auto_update']
   script 'yum-expire_cache-sigsci_release_repo' do
     interpreter 'bash'
     code <<-EOS
