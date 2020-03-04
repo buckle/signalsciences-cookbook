@@ -24,6 +24,7 @@ default['bke_signalsciences']['debug'] = {
   'log-uploads' => 0,
 }
 
+
 ## ------------------------------------------------------------------
 ## APACHE MODULE CONFIGURATION
 ## ------------------------------------------------------------------
@@ -40,6 +41,8 @@ default['bke_signalsciences']['apache_module_auto_update'] = false
 ## ------------------------------------------------------------------
 default['bke_signalsciences']['nginx_lua_module_version'] = ''
 default['bke_signalsciences']['nginx_lua_module_auto_update'] = false
+default['bke_signalsciences']['nginx_native_module_version'] = ''
+default['bke_signalsciences']['nginx_native_module_auto_update'] = false
 
 ## ------------------------------------------------------------------
 ## INTERNAL CONFIG
