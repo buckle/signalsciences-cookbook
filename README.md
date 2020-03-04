@@ -1,6 +1,7 @@
 # signalsciences
 
-[![Build Status](http://jenkins-01.eastus.cloudapp.azure.com/job/signalsciences-cookbook/badge/icon)](http://jenkins-01.eastus.cloudapp.azure.com/job/signalsciences-cookbook/)
+THIS IS A FORK OF THE OFFICIAL SIGNALSCIENCES RECIPE, THIS IS CURRENTLY
+UNDER DEVELOPMENT. USE AT YOUR OWN RISK.
 
 The signalsciences cookbook installs and configures Signal Sciences in your infrastructure.
 
@@ -37,10 +38,12 @@ For more details look at the [TESTING.md](./TESTING.md).
 
 If you would like to see the detailed LICENSE click [here](./LICENSE).
 
-- Author:: Signal Sciences Corp. <support@signalsciences.com>
+- Author: Buckle Inc <wsdsysadmin@buckle.com>
+
+- Original Author:: Signal Sciences Corp. <support@signalsciences.com>
 
 ```text
-Copyright:: Signal Sciences Corp.
+Copyright:: Buckle, Inc
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
