@@ -9,10 +9,16 @@
 
 dist_release = node['platform_version'].gsub(/^(\d)\..*/, '\1')
 
+# Set a default RPC address for agents running on CentOS >= 7 with the native module
+if node['bke_signalsciences']['rpc_address'].empty? && node['bke_signalsciences']['nginx_module_type'] == 'native' && dist_release >= '7'
+  node.default['bke_signalsciences']['rpc_address'] = 'unix:/var/run/sigsci.sock'
+end
+
 # workaround for apache httpd under systemd. Under systemd httpd runs with
-# private tmp enabled by default so we can't see our unix domain socket
-if dist_release == '7' && node['signalsciences']['rpc_address'].empty?
-  node.default['signalsciences']['rpc_address'] = 'unix:/var/run/sigsci-lua'
+# private tmp enabled by default so we can't see our unix domain socket.
+
+if dist_release >= '7' && node['bke_signalsciences']['rpc_address'].empty?
+  node.default['bke_signalsciences']['rpc_address'] = 'unix:/var/run/sigsci-lua'
 end
 
 template '/etc/yum.repos.d/sigsci-release.repo' do
@@ -29,10 +35,10 @@ end
 # If auto update mode is enabled periodically clean the yum metadata cache
 # for the sigsci repo only. How frequently this occurs is configured by
 # the cache_refresh_interval attribute, by default we refresh hourly.
-cache_refresh_interval = node['signalsciences']['cache_refresh_interval']
-cache_sentinel_file = node['signalsciences']['cache_sentinel_file']
+cache_refresh_interval = node['bke_signalsciences']['cache_refresh_interval']
+cache_sentinel_file = node['bke_signalsciences']['cache_sentinel_file']
 
-if node['signalsciences']['agent_auto_update'] || node['signalsciences']['apache_module_auto_update'] || node['signalsciences']['nginx_lua_module_auto_update']
+if node['bke_signalsciences']['agent_auto_update'] || node['bke_signalsciences']['apache_module_auto_update'] || node['bke_signalsciences']['nginx_lua_module_auto_update'] || node['bke_signalsciences']['nginx_native_module_auto_update']
   script 'yum-expire_cache-sigsci_release_repo' do
     interpreter 'bash'
     code <<-EOS
