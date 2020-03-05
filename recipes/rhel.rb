@@ -10,7 +10,9 @@
 dist_release = node['platform_version'].gsub(/^(\d)\..*/, '\1')
 
 # Set a default RPC address for agents running on CentOS >= 7 with the native module
-node.default['bke_signalsciences']['rpc_address'] = 'unix:/var/run/sigsci.sock' if node['bke_signalsciences']['rpc_address'].empty? && node['bke_signalsciences']['nginx_module_type'] == 'native'
+if node['bke_signalsciences']['rpc_address'].empty? && node['bke_signalsciences']['nginx_module_type'] == 'native' && dist_release >= '7'
+  node.default['bke_signalsciences']['rpc_address'] = 'unix:/var/run/sigsci.sock'
+end
 
 # workaround for apache httpd under systemd. Under systemd httpd runs with
 # private tmp enabled by default so we can't see our unix domain socket.
