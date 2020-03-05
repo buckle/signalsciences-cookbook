@@ -39,6 +39,8 @@ default['bke_signalsciences']['apache_module_auto_update'] = false
 ## ------------------------------------------------------------------
 ## NGINX MODULE CONFIGURATION
 ## ------------------------------------------------------------------
+# set nginx_module_type to "native" to use the native nginx module
+default['bke_signalsciences']['nginx_module_type'] = false
 default['bke_signalsciences']['nginx_lua_module_version'] = ''
 default['bke_signalsciences']['nginx_lua_module_auto_update'] = false
 default['bke_signalsciences']['nginx_native_module_version'] = ''

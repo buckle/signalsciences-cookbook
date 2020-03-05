@@ -35,11 +35,17 @@ directory '/etc/sigsci' do
   mode 0755
 end
 
-template '/etc/sigsci/agent.conf' do
-  source 'agent.conf.erb'
-  sensitive true
-  mode 0644
-  notifies :restart, 'service[sigsci-agent]', :immediately
+# Avoid installing this template and restarting the agent unnecessarily. We should be the only
+# thing putting this template here unless the user manually created one. This block used to
+# re-render the template and restart the agent every Chef run, which for us was 30m-1h and
+# caused issues on CentOS 7.
+unless ::File.exists?('/etc/sigsci/agent.conf')
+  template '/etc/sigsci/agent.conf' do
+    source 'agent.conf.erb'
+    sensitive true
+    mode 0644
+    notifies :restart, 'service[sigsci-agent]', :immediately
+  end
 end
 
 service 'sigsci-agent' do

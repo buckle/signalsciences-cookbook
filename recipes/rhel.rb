@@ -9,10 +9,14 @@
 
 dist_release = node['platform_version'].gsub(/^(\d)\..*/, '\1')
 
+# Set a default RPC address for agents running on CentOS >= 7 with the native module
+node.default['bke_signalsciences']['rpc_address'] = 'unix:/var/run/sigsci.sock' if node['bke_signalsciences']['rpc_address'].empty? && node['bke_signalsciences']['nginx_module_type'] == 'native'
+
 # workaround for apache httpd under systemd. Under systemd httpd runs with
-# private tmp enabled by default so we can't see our unix domain socket
-if dist_release == '7' && node['bke_signalsciences']['rpc_address'].empty?
-  node.default['signalsciences']['rpc_address'] = 'unix:/var/run/sigsci-lua'
+# private tmp enabled by default so we can't see our unix domain socket.
+
+if dist_release >= '7' && node['bke_signalsciences']['rpc_address'].empty?
+  node.default['bke_signalsciences']['rpc_address'] = 'unix:/var/run/sigsci-lua'
 end
 
 template '/etc/yum.repos.d/sigsci-release.repo' do
@@ -32,7 +36,7 @@ end
 cache_refresh_interval = node['bke_signalsciences']['cache_refresh_interval']
 cache_sentinel_file = node['bke_signalsciences']['cache_sentinel_file']
 
-if node['bke_signalsciences']['agent_auto_update'] || node['bke_signalsciences']['apache_module_auto_update'] || node['bke_signalsciences']['nginx_lua_module_auto_update']
+if node['bke_signalsciences']['agent_auto_update'] || node['bke_signalsciences']['apache_module_auto_update'] || node['bke_signalsciences']['nginx_lua_module_auto_update'] || node['bke_signalsciences']['nginx_native_module_auto_update']
   script 'yum-expire_cache-sigsci_release_repo' do
     interpreter 'bash'
     code <<-EOS
