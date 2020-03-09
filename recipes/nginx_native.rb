@@ -1,12 +1,12 @@
 #
 # Cookbook Name:: signalsciences
-# Recipe:: nginx-lua
+# Recipe:: nginx_native
 #
-# Copyright (C) 2016 Signal Sciences Corp.
+# Copyright (C) 2019 Buckle, Inc
 #
 # All rights reserved - Do Not Redistribute
 #
-#
+
 
 include_recipe 'bke_signalsciences::common'
 
@@ -18,7 +18,7 @@ install_action = if node['bke_signalsciences']['nginx_native_module_auto_update'
                  end
 
 # installs the sigsci-agent package and pins version if agent_version is set
-package 'sigsci-nginx-native-module' do
+package 'nginx-module-sigsci-nxo' do
   unless node['bke_signalsciences']['nginx_native_module_version'].empty?
     version node['bke_signalsciences']['nginx_native_module_version']
   end
