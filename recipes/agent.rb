@@ -10,6 +10,10 @@
 
 include_recipe 'bke_signalsciences::common'
 
+if node['bke_signalsciences']['nginx_module_type'] == 'native'
+  node.override['bke_signalsciences']['rpc_address'] = '/var/run/sigsci.sock'
+end
+
 if node['bke_signalsciences']['access_key'].empty? || node['bke_signalsciences']['secret'].empty?
   Chef::Log.warn("Signal Sciences access or secret key attributes aren't set, not installing agent")
   return

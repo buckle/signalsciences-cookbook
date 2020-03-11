@@ -24,3 +24,5 @@ package 'nginx-module-sigsci-nxo' do
   end
   action install_action
 end
+
+node.default['bke_signalsciences']['nginx_module_type'] = 'native'
