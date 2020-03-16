@@ -10,9 +10,9 @@
 
 case node['platform_family']
 when 'rhel'
-  include_recipe 'signalsciences::rhel'
+  include_recipe 'bke_signalsciences::rhel'
 when 'debian'
-  include_recipe 'signalsciences::debian'
+  include_recipe 'bke_signalsciences::debian'
 else
   warn "Signal Sciences applications aren't supported on this platform"
   return
