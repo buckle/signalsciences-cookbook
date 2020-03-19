@@ -1,4 +1,4 @@
-# signalsciences
+# bke_signalsciences
 
 THIS IS A FORK OF THE OFFICIAL SIGNALSCIENCES RECIPE, THIS IS CURRENTLY
 UNDER DEVELOPMENT. USE AT YOUR OWN RISK.
@@ -27,8 +27,8 @@ Include this cookbook in your runlist and make sure you set these attributes.
 ### Required Attributes
 | Key | Description |
 | --- | ----------- |
-| `['signalsciences']['access_key']` | Your site access key token |
-| `['signalsciences']['secret']`     | Your site secret token |
+| `['bke_signalsciences']['access_key']` | Your site access key token |
+| `['bke_signalsciences']['secret']`     | Your site secret token |
 
 ## Testing
 
